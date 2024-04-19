@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1075260168097",
+    "project_id": "dilo-en-senas",
+    "storage_bucket": "dilo-en-senas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075260168097:android:90e0944e1d811af1ebdde0",
+        "android_client_info": {
+          "package_name": "com.aprendeadecirlo.aprende_a_decirlo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRFunY7BLYflIieAOv9-nbvq6Qy44pstY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
