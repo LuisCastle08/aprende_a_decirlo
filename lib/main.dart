@@ -1,8 +1,16 @@
+import 'package:aprende_a_decirlo/auth/register/register.dart';
 import 'package:aprende_a_decirlo/auth/welcome/welcome_screen.dart';
+import 'package:aprende_a_decirlo/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 
-void main()  {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MainApp());
 }
 
@@ -11,9 +19,17 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+/*         theme: ThemeData(
+    brightness: Brightness.dark, 
+    primarySwatch: Colors.pink,
+  ), */
       debugShowCheckedModeBanner: false,
-      home: WelcomeScreen(),
+      home: const WelcomeScreen(),
+      routes: <String, WidgetBuilder>{
+       
+        '/Registro': (BuildContext context) => const Register()
+      },
     );
   }
 }

@@ -29,12 +29,13 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           fontWeight: FontWeight.w900,
         ),
       ),
-      centerTitle: true, // Centra el título
+      centerTitle: true,
       backgroundColor: const Color.fromRGBO(255, 234, 151, 1),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(borderCustom),
         ),
+        side: BorderSide(color: const Color.fromRGBO(255, 234, 151, 1), width: 1), // Aquí defines el color y el ancho del borde
       ),
       actions: [
         GestureDetector(

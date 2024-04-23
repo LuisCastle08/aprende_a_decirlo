@@ -4,9 +4,14 @@ import 'package:aprende_a_decirlo/widgets/appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:aprende_a_decirlo/entities/shared/asset_local_abc.dart'; // Import the map
 
-class PageDictionaryScreen extends StatelessWidget {
+class PageDictionaryScreen extends StatefulWidget {
   const PageDictionaryScreen({super.key});
 
+  @override
+  State<PageDictionaryScreen> createState() => _PageDictionaryScreenState();
+}
+
+class _PageDictionaryScreenState extends State<PageDictionaryScreen> {
   @override
   Widget build(BuildContext context) {
     int tamanoABD = alfabetoRutas.length; // Get map length
@@ -43,7 +48,11 @@ class PageDictionaryScreen extends StatelessWidget {
           enableFeedback: true,
           /* shape: const StadiumBorder(), */ //BORDER RADIUS A CIRCULO
           onPressed: () {
+            setState(() {
+              
+            });
             Navigator.push(context,MaterialPageRoute(builder: (_) =>  const TraductoPalabra()));
+            
           },
           backgroundColor: const Color.fromRGBO(255, 118, 154, 1),
           child: const Text('TRADUCTOR', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),)

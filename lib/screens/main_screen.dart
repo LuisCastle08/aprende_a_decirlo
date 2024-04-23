@@ -6,7 +6,8 @@ import 'package:aprende_a_decirlo/screens/mains/screens_videos/videos_screen.dar
 import 'package:flutter/material.dart';
 
 class VideosScreen extends StatefulWidget {
-  const VideosScreen({super.key});
+  final String userId;
+  const VideosScreen({super.key, required this.userId});
 
   @override
   State<VideosScreen> createState() => _VideosScreenState();
@@ -15,17 +16,17 @@ class VideosScreen extends StatefulWidget {
 class _VideosScreenState extends State<VideosScreen> {
   int currentPage = 0;
 
-  final List<Widget> paginas = [
-    const PageVideosScreen(),
-    const PageGameScreen(),
-    const PageProfileScreen(),
-    const PageForoScreen(),
-    const PageDictionaryScreen(),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final List<Widget> paginas = [
+      const PageVideosScreen(),
+      const PageGameScreen(),
+      PageProfileScreen(userId: widget.userId), // Usar widget.userId aquí
+      const PageForoScreen(),
+      const PageDictionaryScreen(),
+    ];
+
+    return  Scaffold(
       body: PageView(
         physics: const BouncingScrollPhysics(),
         children: [
@@ -75,5 +76,4 @@ class _VideosScreenState extends State<VideosScreen> {
     );
   }
 }
-
 

@@ -3,9 +3,14 @@ import 'package:aprende_a_decirlo/widgets/appbar_widget.dart';
 import 'package:aprende_a_decirlo/widgets/input_form.dart';
 import 'package:flutter/material.dart';
 
-class PageVideosScreen extends StatelessWidget {
+class PageVideosScreen extends StatefulWidget {
   const PageVideosScreen({super.key});
 
+  @override
+  State<PageVideosScreen> createState() => _PageVideosScreenState();
+}
+
+class _PageVideosScreenState extends State<PageVideosScreen> {
   @override
   Widget build(BuildContext context) {
    return Scaffold(
@@ -15,8 +20,10 @@ class PageVideosScreen extends StatelessWidget {
         child: ListView(
           children: const <Widget>[
             InputForm(
+              useHidePassword: false,
               hintText: 'Buscar',
               iconCustom: Icons.search,
+              
             ),
             SizedBox(
               height: 20,

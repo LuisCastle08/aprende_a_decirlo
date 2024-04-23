@@ -3,16 +3,23 @@ import 'package:flutter/material.dart';
 
 class PalabraDictionaryEntitie extends StatelessWidget {
   final String letra;
-  const PalabraDictionaryEntitie({super.key, required this.letra});
+  final String palabra;
+  const PalabraDictionaryEntitie({super.key,  this.letra='a', required this.palabra});
 
   @override
   Widget build(BuildContext context) {
-    String palabra = "AMIGO";
+    
     return Column(
       children: [
         GestureDetector(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (_) =>  UsePalabraDictionary(palabra: palabra, title:letra,)));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => UsePalabraDictionary(
+                          palabra: palabra,
+                          title: letra,
+                        )));
           },
           child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),

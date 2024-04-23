@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 class InputProfileCustom extends StatelessWidget {
   final String hintText;
   final IconData? iconCustom;
-  final String valueInputInitial;
-
+  final String? valueInputInitial;
+  final TextEditingController? customController;
   const InputProfileCustom(
-      {super.key, required this.hintText, this.iconCustom, required this.valueInputInitial});
+      {super.key,
+      required this.hintText,
+      this.iconCustom,
+       this.valueInputInitial,  this.customController});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +23,7 @@ class InputProfileCustom extends StatelessWidget {
       ),
       child: TextFormField(
         initialValue: valueInputInitial,
+        controller: customController,
         decoration: InputDecoration(
             icon: Icon(iconCustom),
             hintText: hintText,

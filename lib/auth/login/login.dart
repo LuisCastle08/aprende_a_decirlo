@@ -2,14 +2,18 @@ import 'package:aprende_a_decirlo/screens/main_screen.dart';
 import 'package:aprende_a_decirlo/auth/register/register.dart';
 import 'package:aprende_a_decirlo/widgets/input_form.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-
+FirebaseFirestore db = FirebaseFirestore.instance;
 
 class Login extends StatelessWidget {
   const Login({super.key});
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController usuario = TextEditingController(text: "");
+    TextEditingController password = TextEditingController(text: "");
+  
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -63,8 +67,12 @@ class Login extends StatelessWidget {
                             top: Radius.circular(15),
                             bottom: Radius.circular(15)),
                       ),
-                      child: const InputForm(
-                          iconCustom: Icons.person, hintText: 'USUARIO'),
+                      child: InputForm(
+                        iconCustom: Icons.person,
+                        hintText: 'USUARIO',
+                        textController: usuario,
+                        useHidePassword: false ,
+                      ),
                     ),
                     const SizedBox(
                       height: 20,
@@ -77,8 +85,12 @@ class Login extends StatelessWidget {
                             top: Radius.circular(15),
                             bottom: Radius.circular(15)),
                       ),
-                      child: const InputForm(
-                          iconCustom: Icons.key, hintText: 'CONTRASEÑA'),
+                      child: InputForm(
+                        useHidePassword: true,
+                        iconCustom: Icons.key,
+                        hintText: 'CONTRASEÑA',
+                        textController: password,
+                      ),
                     ),
                     const SizedBox(
                       height: 20,
@@ -98,10 +110,35 @@ class Login extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
+                        /* Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (_) => const VideosScreen()));
+                                builder: (_) => const VideosScreen())); */
+
+                        if (usuario.text == "" || password.text == "") {
+                          showDialog(
+                            builder: (BuildContext context) {
+                              return Center(
+                                child: AlertDialog(
+                                  title: const Text('ERROR'),
+                                  content: const Text(
+                                      'Alguno de los campos esta VACIO'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                            context: context,
+                          );
+                        }else{
+                          validarCredenciales(context, usuario.text, password.text);
+                        }
                       },
                       child: Container(
                         height: 50,
@@ -167,6 +204,53 @@ class Login extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/* logica para revisar si existe o no */
+Future<void> validarCredenciales(
+    BuildContext context, String nombreUsuario, String contrasena) async {
+  // Referencia a la colección 'usuario' en Firestore
+  CollectionReference collectionReferenceUsuario = db.collection('usuario');
+
+  // Consulta Firestore para buscar documentos con el campo 'nombre' igual al nombre de usuario especificado
+  QuerySnapshot queryUsuario = await collectionReferenceUsuario
+      .where('usuario', isEqualTo: nombreUsuario)
+      .where('contrasena', isEqualTo: contrasena)
+      .get();
+
+  // Verificar si se encontraron documentos que coinciden con el nombre de usuario y contraseña
+  if (queryUsuario.docs.isNotEmpty) {
+    // Obtener la ID del primer documento encontrado (asumiendo que solo hay uno)
+    String userId = queryUsuario.docs.first.id;
+  
+    // Si las credenciales son válidas, redirige a la nueva ventana
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) => VideosScreen(
+                  userId: userId,
+                )));
+  } else {
+    // Si las credenciales no son válidas, muestra un mensaje de error o toma otra acción
+    showDialog(
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Error de inicio de sesión'),
+          content: const Text(
+              'Credenciales incorrectas. Por favor, inténtalo de nuevo.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+      context: context,
     );
   }
 }
