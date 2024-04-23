@@ -1,6 +1,5 @@
 import 'package:aprende_a_decirlo/auth/register/register.dart';
 import 'package:aprende_a_decirlo/auth/welcome/welcome_screen.dart';
-import 'package:aprende_a_decirlo/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
