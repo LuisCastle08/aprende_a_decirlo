@@ -1,9 +1,11 @@
 import 'package:aprende_a_decirlo/entities/video_entities.dart';
+import 'package:aprende_a_decirlo/services/firebase_service.dart';
 import 'package:aprende_a_decirlo/widgets/appbar_widget.dart';
-import 'package:aprende_a_decirlo/widgets/input_form.dart';
+
 import 'package:flutter/material.dart';
 
 class PageVideosScreen extends StatefulWidget {
+  
   const PageVideosScreen({super.key});
 
   @override
@@ -13,28 +15,41 @@ class PageVideosScreen extends StatefulWidget {
 class _PageVideosScreenState extends State<PageVideosScreen> {
   @override
   Widget build(BuildContext context) {
-   return Scaffold(
+    return Scaffold(
       appBar: const AppBarWidget(titleCustom: 'VIDEOS'),
       body: Padding(
-        padding: const EdgeInsets.only(top: 10, right: 30, left: 30),
-        child: ListView(
-          children: const <Widget>[
-            InputForm(
-              useHidePassword: false,
-              hintText: 'Buscar',
-              iconCustom: Icons.search,
-              
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            VideoEntities(nameVideo: 'PALABRAS BASICAS #1', nameAutor: 'Luis Castillo', viewsVideo: 10000, fechaVideo: 20,),
-            VideoEntities(nameVideo: 'Familiares #2', nameAutor: 'Skids United', viewsVideo: 2003, fechaVideo: 8,),
-            VideoEntities(nameVideo: 'Objetos #3', nameAutor: 'Castle King', viewsVideo: 1004, fechaVideo: 1,),
-            VideoEntities(nameVideo: 'Objetos #4', nameAutor: 'Cumbia', viewsVideo: 104, fechaVideo: 9,),
+          padding: const EdgeInsets.only(top: 10, right: 30, left: 30),
+          child: FutureBuilder(
+              future: getVideos(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData && snapshot.data != null) {
+                  return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      // Verificar si snapshot.data[index]['usuario'] no es nulo antes de intentar acceder a él
+                      final id = snapshot.data![index]['uid'];
+                      final titulo = snapshot.data![index]['titulo'];
+                      final autor = snapshot.data![index]['autor'];
+                      final fecha = snapshot.data![index]['fecha'];
+                      final nivel = snapshot.data![index]['nivel'];
+                      final idvideo = snapshot.data![index]['id'];
 
-          ],
-        ),
+                      return VideoEntities(
+                          nameVideo: titulo,
+                          nameAutor: autor,
+                          fechaVideo: fecha.toString(),
+
+                          videoId: idvideo);
+
+                      /* Text(usuario != null ? usuario.toString() : 'Usuario no disponible'); */
+                    },
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              })
       ),
     );
   }

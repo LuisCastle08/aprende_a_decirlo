@@ -1,18 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class VideoEntities extends StatelessWidget {
+class VideoEntities extends StatefulWidget {
   final String nameVideo;
   final String nameAutor;
-  final int viewsVideo;
-  final int? fechaVideo;
+
+  final String? fechaVideo;
+  final String videoId;
 
   const VideoEntities(
       {super.key,
       required this.nameVideo,
       required this.nameAutor,
-      required this.viewsVideo,
-      this.fechaVideo});
+      this.fechaVideo,
+      required this.videoId});
+
+  @override
+  State<VideoEntities> createState() => _VideoEntitiesState();
+}
+
+class _VideoEntitiesState extends State<VideoEntities> {
+  late YoutubePlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = YoutubePlayerController(
+        initialVideoId: widget.videoId,
+        flags: const YoutubePlayerFlags(
+          autoPlay: false,
+          mute: false,
+        ))
+      ..addListener(_onPlayerStateChange);
+  }
+
+  void _onPlayerStateChange() {
+    if (_controller.value.playerState == PlayerState.playing) {}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,35 +52,17 @@ class VideoEntities extends StatelessWidget {
               color: const Color.fromRGBO(238, 238, 238, 1),
             ),
             child: Stack(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    // ignore: deprecated_member_use
-                    launch(
-                        "https://www.youtube.com/watch?v=q-juc7-tByU&pp=ygUGc2XDsWFz");
-                  },
-                  icon: Icon(
-                    Icons.play_arrow,
-                    size: 100,
-                  ),
-
-                  /*  const Icon(
-                      Icons.play_arrow,
-                      size: 100,
-                    ),
-                  ], */
-                ),
-              ],
+              children: [YoutubePlayer(controller: _controller)],
             ),
           ),
           const SizedBox(
             height: 7,
           ),
-          Text(nameVideo,
+          Text(widget.nameVideo,
               style:
                   const TextStyle(fontSize: 25, fontWeight: FontWeight.w600)),
           Text(
-              '$nameAutor - $viewsVideo Vistas - Hace $fechaVideo ${fechaVideo == 1 ? "dia" : "dias"} ',
+              '${widget.nameAutor} - ${widget.fechaVideo}',
               style:
                   const TextStyle(fontSize: 20, fontWeight: FontWeight.w400)),
           const SizedBox(
