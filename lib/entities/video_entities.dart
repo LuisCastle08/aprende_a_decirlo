@@ -40,6 +40,7 @@ class _VideoEntitiesState extends State<VideoEntities> {
 
   @override
   Widget build(BuildContext context) {
+    String? fecha = widget.fechaVideo;
     return SizedBox(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +63,7 @@ class _VideoEntitiesState extends State<VideoEntities> {
               style:
                   const TextStyle(fontSize: 25, fontWeight: FontWeight.w600)),
           Text(
-              '${widget.nameAutor} - ${widget.fechaVideo}',
+              '${widget.nameAutor}  $fecha ${fecha == '1'? 'Dia' : 'Dias' }',
               style:
                   const TextStyle(fontSize: 20, fontWeight: FontWeight.w400)),
           const SizedBox(

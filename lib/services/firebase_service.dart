@@ -44,19 +44,13 @@ Future<void> updateUsuario(String idUsuario, String usuario, String nombre,
 
 // ********* VIDEOS *********
 /* obtenemos los videos */
-
 Future<List<Map<String, dynamic>>> getVideos() async {
-  String filterType = "ball";
-  List<Map<String, dynamic>> videos = [];
+  List<Map<String, dynamic>> video = [];
   CollectionReference collectionReferenceVideo = db.collection('video');
-  QuerySnapshot queryVideo = await collectionReferenceVideo.get();
+  QuerySnapshot queryVideo = await collectionReferenceVideo.where('nivel', isEqualTo: '0').get();
   for (var doc in queryVideo.docs) {
     final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-    // Verificar si se debe aplicar el filtro por nivel
-    if (filterType == 'ball' && data['nivel'] != '1') {
-      continue; // Saltar este video si el filtro es 'ball' y el nivel no es 0
-    }
-    final video = {
+    final videos = {
       "titulo": data['titulo'],
       "autor": data['autor'],
       "fecha": data['fecha'],
@@ -64,12 +58,13 @@ Future<List<Map<String, dynamic>>> getVideos() async {
       "nivel": data['nivel'],
       "uid": doc.id,
     };
-    videos.add(video);
+    video.add(videos);
   }
   // Ordenar los videos por título
-  videos.sort((a, b) => a['titulo'].compareTo(b['titulo']));
-  return videos;
+  video.sort((a, b) => a['titulo'].compareTo(b['titulo']));
+  return video;
 }
+
 
 // ********* FIN VIDEO *********
 
@@ -89,6 +84,7 @@ Future<List> getComentario() async {
       "tipoComentario": data['tipoComentario'],
       "uid": doc.id,
     };
+    
     comentario.add(comentarios);
   }
   return comentario;

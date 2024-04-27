@@ -102,7 +102,7 @@ class _WriteCommentUserState extends State<WriteCommentUser> {
                       if (comentarioController.text.trim().isEmpty) {
                         modalCommentError(context);
                       } else {
-                        await addComentario(comentarioController.text, 'luis', tipoComentario).then((_) => {
+                        await addComentario(comentarioController.text, 'pedro', tipoComentario).then((_) => {
                           Navigator.pop(context) // Cerrar el diálogo
                         });
                         comentarioController.clear();
