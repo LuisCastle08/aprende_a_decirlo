@@ -19,6 +19,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Dilo En Señas',
 /*         theme: ThemeData(
     brightness: Brightness.dark, 
     primarySwatch: Colors.pink,

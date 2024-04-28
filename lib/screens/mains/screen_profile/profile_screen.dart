@@ -4,10 +4,15 @@ import 'package:aprende_a_decirlo/widgets/appbar_widget.dart';
 import 'package:aprende_a_decirlo/widgets/input_profile.dart';
 import 'package:flutter/material.dart';
 
-class PageProfileScreen extends StatelessWidget {
+class PageProfileScreen extends StatefulWidget {
   final String userId;
   const PageProfileScreen({super.key, required this.userId});
 
+  @override
+  State<PageProfileScreen> createState() => _PageProfileScreenState();
+}
+
+class _PageProfileScreenState extends State<PageProfileScreen> {
   @override
   Widget build(BuildContext context) {
     TextEditingController estadoText = TextEditingController(text: "");
@@ -20,7 +25,7 @@ class PageProfileScreen extends StatelessWidget {
         borderCustom: 0,
       ),
       body: FutureBuilder(
-        future: getUsuario(userId),
+        future: getUsuario(widget.userId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -52,9 +57,11 @@ class PageProfileScreen extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
-                          const Icon(
-                            Icons.perm_identity_outlined,
-                            size: 120,
+                          const ClipOval(
+                            child: Image(
+                              height: 120,
+                              image: AssetImage('assets/img_profile.jpeg'),
+                            ),
                           ),
                           Text(
                             usuario,
@@ -137,10 +144,35 @@ class PageProfileScreen extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
-                        GestureDetector(
+                         GestureDetector(
                           onTap: () {
-                            updateUsuario(id, usuario , nombre,estadoText.text,
-                                correoText.text);
+
+                              showDialog(
+                              builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('ADVERTENCIA'),
+                                content: const Text('¿Estás seguro de actualizar la información?'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop(); // Cierra el diálogo
+                                    },
+                                    child: const Text('No'), // Botón "No"
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      updateUsuario(id, usuario , nombre,estadoText.text,correoText.text).then((_) => Navigator.pop(context));
+                                      setState(() {
+                                        
+                                      });
+                                    },
+                                    child: const Text('Sí'), // Botón "Sí"
+                                  ),
+                                ],
+                              );
+                              },
+                              context: context,
+                              );
                           },
                           child: Container(
                             height: 50,

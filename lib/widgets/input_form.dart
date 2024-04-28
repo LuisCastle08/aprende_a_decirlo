@@ -40,27 +40,30 @@ class _InputFormState extends State<InputForm> {
         borderRadius: const BorderRadius.vertical(
             top: Radius.circular(15), bottom: Radius.circular(15)),
       ),
-      child: TextFormField(
-        controller: widget.textController,
-        obscureText: _obscureText,
-        decoration: InputDecoration(
-          icon: Icon(widget.iconCustom),
-          hintText: widget.hintText,
-          hintStyle: TextStyle(fontSize: 20, color: widget.colorTextCustom),
-          border: InputBorder.none,
-          // Mostramos el icono para ocultar/mostrar la contraseña solo si useHidePassword es true
-          suffixIcon: widget.useHidePassword
-              ? IconButton(
-                  onPressed: () {
-                    setState(() {
-                      _obscureText = !_obscureText;
-                    });
-                  },
-                  icon: Icon(
-                    _obscureText ? Icons.visibility : Icons.visibility_off,
-                  ),
-                )
-              : null,
+      child: Center(
+        child: TextFormField(
+          textAlign: TextAlign.justify,
+          controller: widget.textController,
+          obscureText: _obscureText,
+          decoration: InputDecoration(
+            icon: Icon(widget.iconCustom),
+            hintText: widget.hintText,
+            hintStyle: TextStyle( fontSize: 20, color: widget.colorTextCustom),
+            border: InputBorder.none,
+            // Mostramos el icono para ocultar/mostrar la contraseña solo si useHidePassword es true
+            suffixIcon: widget.useHidePassword
+                ? IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                    icon: Icon(
+                      _obscureText ? Icons.visibility : Icons.visibility_off,
+                    ),
+                  )
+                : null,
+          ),
         ),
       ),
     );

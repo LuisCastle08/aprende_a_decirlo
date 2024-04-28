@@ -30,6 +30,7 @@ class _VideoEntitiesState extends State<VideoEntities> {
         flags: const YoutubePlayerFlags(
           autoPlay: false,
           mute: false,
+          
         ))
       ..addListener(_onPlayerStateChange);
   }
@@ -49,7 +50,7 @@ class _VideoEntitiesState extends State<VideoEntities> {
             height: 170,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(10),
               color: const Color.fromRGBO(238, 238, 238, 1),
             ),
             child: Stack(

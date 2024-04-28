@@ -5,7 +5,8 @@ import 'package:aprende_a_decirlo/widgets/appbar_widget.dart';
 import 'package:flutter/material.dart';
 
 class PageForoScreen extends StatefulWidget {
-  const PageForoScreen({super.key});
+  final String nombreCustom;
+  const PageForoScreen({super.key, required this.nombreCustom});
 
   @override
   State<PageForoScreen> createState() => _PageForoScreenState();
@@ -26,10 +27,13 @@ class _PageForoScreenState extends State<PageForoScreen> {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
                     // Verificar si snapshot.data[index]['usuario'] no es nulo antes de intentar acceder a él
-                    final id = snapshot.data![index]['uid'];
+                    /* final id = snapshot.data![index]['uid']; */
                     final usuario = snapshot.data![index]['nombre'];
                     final comentario = snapshot.data![index]['comentario'];
                     final tipo = snapshot.data![index]['tipoComentario'];
+                    final fecha = snapshot.data![index]['fecha'];
+
+                    DateTime fechar = fecha.toDate();
 
                     return CommentForo(
                       usuarioName:
@@ -38,7 +42,7 @@ class _PageForoScreenState extends State<PageForoScreen> {
                           ? comentario.toString()
                           : 'Sin Comentarios',
                       customContenedor: tipo ?? 1,
-                      userID: id ?? 'sin id',
+                    fecha: fechar,
                     );
 
                     /* Text(usuario != null ? usuario.toString() : 'Usuario no disponible'); */
@@ -59,11 +63,13 @@ class _PageForoScreenState extends State<PageForoScreen> {
           enableFeedback: true,
           /* shape: const StadiumBorder(), */ //BORDER RADIUS A CIRCULO
           onPressed: () async {
-            await Navigator.push(context,
-                MaterialPageRoute(builder: (_) => const WriteCommentUser()));
-            setState(() {
-              
-            });
+            await Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => WriteCommentUser(
+                          usuarioComentario: widget.nombreCustom,
+                        )));
+            setState(() {});
           },
           backgroundColor: const Color.fromRGBO(255, 118, 154, 1),
           child: const Icon(

@@ -5,12 +5,15 @@ class CommentForo extends StatelessWidget {
   final String textoCard;
   final String usuarioName;
   final int customContenedor;
-  final String userID;
+
+  final DateTime fecha;
+
   const CommentForo(
       {super.key,
       required this.textoCard,
       required this.usuarioName,
-      required this.customContenedor, required this.userID});
+      required this.customContenedor,
+      required this.fecha});
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +25,13 @@ class CommentForo extends StatelessWidget {
     } else {
       colorContenedor = const Color.fromRGBO(255, 234, 151, 1);
     }
+    int fechar = DateTime.now().day;
+    String fechaComentario = ' ${( fechar - fecha.day) != 0 ? ( fechar - fecha.day) == 1 ? 'Hace ${( fechar - fecha.day)}   Dia' : 'Hace ${( fechar - fecha.day)} Dias' : ' Hoy'}';
 
     return Column(
       children: [
         Container(
-          height: 260,
+          height: 200,
           decoration: BoxDecoration(
               color: colorContenedor,
               borderRadius: const BorderRadius.all(Radius.circular(10))),
@@ -40,9 +45,11 @@ class CommentForo extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(
-                        Icons.person,
-                        size: 100,
+                      const ClipOval(
+                        child: Image(
+                          height: 100,
+                          image: AssetImage('assets/img_profile.jpeg'),
+                        ),
                       ),
                       Text(
                         usuarioName,
@@ -53,8 +60,7 @@ class CommentForo extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      Text(userID),
-                      const Text('Hace 3 dias'),
+                      Text(fechaComentario),
                     ],
                   ),
                 ),

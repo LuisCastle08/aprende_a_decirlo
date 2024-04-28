@@ -9,7 +9,8 @@ import 'package:flutter/widgets.dart';
 void main() => runApp(const WriteCommentUser());
 
 class WriteCommentUser extends StatefulWidget {
-  const WriteCommentUser({super.key});
+  final String usuarioComentario;
+  const WriteCommentUser({super.key, this.usuarioComentario = 'PERSONA'});
 
   @override
   State<WriteCommentUser> createState() => _WriteCommentUserState();
@@ -20,6 +21,7 @@ class _WriteCommentUserState extends State<WriteCommentUser> {
   Color colorContenedor = const Color.fromARGB(255, 243, 238, 238);
   Color colorText = const Color.fromARGB(255, 124, 120, 120);
   int tipoComentario = 0;
+  DateTime fecha = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,9 +104,11 @@ class _WriteCommentUserState extends State<WriteCommentUser> {
                       if (comentarioController.text.trim().isEmpty) {
                         modalCommentError(context);
                       } else {
-                        await addComentario(comentarioController.text, 'pedro', tipoComentario).then((_) => {
-                          Navigator.pop(context) // Cerrar el diálogo
-                        });
+                        await addComentario(comentarioController.text,
+                                widget.usuarioComentario, tipoComentario, fecha)
+                            .then((_) => {
+                                  Navigator.pop(context) // Cerrar el diálogo
+                                });
                         comentarioController.clear();
                       }
                     }

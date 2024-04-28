@@ -249,6 +249,7 @@ Future<void> addUser(BuildContext context, String usuario, String nombre,
     "contrasena": contrasena,
     "estado": estado,
     "correo": correo,
+    "membresia" : '0'
   });
 
   Navigator.push(context, MaterialPageRoute(builder: (_) => const Login())); 

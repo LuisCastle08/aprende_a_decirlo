@@ -5,9 +5,12 @@ import 'package:aprende_a_decirlo/screens/mains/screen_profile/profile_screen.da
 import 'package:aprende_a_decirlo/screens/mains/screens_videos/videos_screen.dart';
 import 'package:flutter/material.dart';
 
+
 class VideosScreen extends StatefulWidget {
   final String userId;
-  const VideosScreen({super.key, required this.userId});
+  final String nombreUser;
+  final String membresia;
+  const VideosScreen({super.key, required this.userId, required this.nombreUser, required this.membresia});
 
   @override
   State<VideosScreen> createState() => _VideosScreenState();
@@ -19,10 +22,10 @@ class _VideosScreenState extends State<VideosScreen> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> paginas = [
-      const PageVideosScreen(),
+      PageVideosScreen(membresia: widget.membresia,),
       const PageGameScreen(),
       PageProfileScreen(userId: widget.userId), // Usar widget.userId aquí
-      const PageForoScreen(),
+      PageForoScreen(nombreCustom: widget.nombreUser),
       const PageDictionaryScreen(),
     ];
 

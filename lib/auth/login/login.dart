@@ -208,7 +208,6 @@ class Login extends StatelessWidget {
   }
 }
 
-/* logica para revisar si existe o no */
 Future<void> validarCredenciales(
     BuildContext context, String nombreUsuario, String contrasena) async {
   // Referencia a la colección 'usuario' en Firestore
@@ -222,16 +221,24 @@ Future<void> validarCredenciales(
 
   // Verificar si se encontraron documentos que coinciden con el nombre de usuario y contraseña
   if (queryUsuario.docs.isNotEmpty) {
-    // Obtener la ID del primer documento encontrado (asumiendo que solo hay uno)
-    String userId = queryUsuario.docs.first.id;
-  
+    // Obtener el primer documento encontrado (asumiendo que solo hay uno)
+    QueryDocumentSnapshot usuarioDoc = queryUsuario.docs.first;
+    // Obtener la ID del documento
+    String userId = usuarioDoc.id;
+    // Obtener el tipo de membresía del usuario
+    String membresia = usuarioDoc.get('membresia') ?? 'membresia_no_definida';
+
     // Si las credenciales son válidas, redirige a la nueva ventana
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (_) => VideosScreen(
-                  userId: userId,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (_) => VideosScreen(
+          userId: userId,
+          nombreUser: nombreUsuario,
+          membresia: membresia, // Pasar la membresía a VideosScreen
+        ),
+      ),
+    );
   } else {
     // Si las credenciales no son válidas, muestra un mensaje de error o toma otra acción
     showDialog(

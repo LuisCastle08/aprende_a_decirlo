@@ -44,10 +44,12 @@ Future<void> updateUsuario(String idUsuario, String usuario, String nombre,
 
 // ********* VIDEOS *********
 /* obtenemos los videos */
-Future<List<Map<String, dynamic>>> getVideos() async {
+Future<List<Map<String, dynamic>>> getVideos(String membresia) async {
+  
   List<Map<String, dynamic>> video = [];
   CollectionReference collectionReferenceVideo = db.collection('video');
-  QuerySnapshot queryVideo = await collectionReferenceVideo.where('nivel', isEqualTo: '0').get();
+  QuerySnapshot queryVideo =
+      await collectionReferenceVideo.where('nivel', isEqualTo: membresia).get();
   for (var doc in queryVideo.docs) {
     final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     final videos = {
@@ -65,14 +67,12 @@ Future<List<Map<String, dynamic>>> getVideos() async {
   return video;
 }
 
-
 // ********* FIN VIDEO *********
 
 // ********* FIN COMENTARIOOS *********
 
 /* TENER TODOS LOS COMENTARIOS */
 Future<List> getComentario() async {
-  
   List comentario = [];
   CollectionReference collectionReferenceUsuario = db.collection('comentario');
   QuerySnapshot queryComentario = await collectionReferenceUsuario.get();
@@ -82,9 +82,10 @@ Future<List> getComentario() async {
       "nombre": data['nombre'],
       "comentario": data['comentario'],
       "tipoComentario": data['tipoComentario'],
+      "fecha": data['fecha'],
       "uid": doc.id,
     };
-    
+
     comentario.add(comentarios);
   }
   return comentario;
@@ -92,11 +93,12 @@ Future<List> getComentario() async {
 
 /* AÑADIR NUEVOS COMENTARIOS */
 Future<void> addComentario(
-    String comentario, String name, int tipoComentario) async {
+    String comentario, String name, int tipoComentario, DateTime fecha) async {
   await db.collection("comentario").add({
     "comentario": comentario,
     "nombre": name,
-    "tipoComentario": tipoComentario
+    "tipoComentario": tipoComentario,
+    "fecha": fecha,
   });
 }
 
