@@ -27,204 +27,202 @@ class _RegisterState extends State<Register> {
   
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(Icons.chevron_left_outlined),
-              iconSize: 50,
-              color: const Color.fromRGBO(255, 118, 154, 1),
-            ),
-            title: const Text('REGISTRO'),
-            centerTitle: true,
-            titleTextStyle: const TextStyle(
-                color: Color.fromRGBO(255, 118, 154, 1),
-                fontSize: 40,
-                fontWeight: FontWeight.w900),
-            toolbarHeight: 100,
-            backgroundColor: const Color.fromRGBO(255, 234, 151, 1),
-            shape: const RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.vertical(bottom: Radius.circular(30))),
-            actions: [
-              Container(
-                width: 50,
-                margin: const EdgeInsets.only(right: 20),
-                color: Colors.white,
-                child: const Image(image: AssetImage('assets/logo.png')),
-              )
-            ],
+    return Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.chevron_left_outlined),
+            iconSize: 50,
+            color: const Color.fromRGBO(255, 118, 154, 1),
           ),
-          body: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 50),
-            child: ListView(
-              children: <Widget>[
-                const SizedBox(
-                  height: 130,
-                  child: Image(image: AssetImage('assets/banner_logo.png')),
-                ),
-                InputForm(
-                  hintText: "USUARIO",
-                  iconCustom: Icons.mood,
-                  textController: usuarioController,
-                  useHidePassword: false,
-                ),
-                const SizedBox(height: 25),
-                InputForm(
-                  hintText: "NOMBRE",
-                  iconCustom: Icons.mood,
-                  textController: nombreController,
-                  useHidePassword: false,
-                ),
-                const SizedBox(height: 25),
-                InputForm(
-                  hintText: "ESTADO",
-                  iconCustom: Icons.phone,
-                  textController: estadoController,
-                  useHidePassword: false,
-                ),
-                const SizedBox(height: 25),
-                InputForm(
-                  hintText: "CORREO",
-                  iconCustom: Icons.mail,
-                  textController: correoController,
-                  useHidePassword: false,
-                ),
-                const SizedBox(height: 25),
-                InputForm(
-                  hintText: "CONTRASEÑA",
-                  iconCustom: Icons.key,
-                  textController: contrasenaController,
-                  useHidePassword:
-                      true, // Para la contraseña, podrías querer habilitar la opción de ocultar/mostrar
-                ),
-                const SizedBox(height: 25),
-                InputForm(
-                  hintText: "CONFIRMAR CONTRASEÑA",
-                  iconCustom: Icons.key,
-                  textController: confirmarContrasenaController,
-                  useHidePassword:
-                      true, // Lo mismo aquí, si es una confirmación de contraseña, podrías querer habilitar la opción de ocultar/mostrar
-                ),
-                const SizedBox(height: 30),
-                imagen_to_upload != null
-                    ? Image.file(imagen_to_upload!)
-                    : const ClipOval(
-                        child: Image(
-                          height: 120,
-                          image: AssetImage('assets/img_profile2.png'),
-                        ),
+          title: const Text('REGISTRO'),
+          centerTitle: true,
+          titleTextStyle: const TextStyle(
+              color: Color.fromRGBO(255, 118, 154, 1),
+              fontSize: 40,
+              fontWeight: FontWeight.w900),
+          toolbarHeight: 100,
+          backgroundColor: const Color.fromRGBO(255, 234, 151, 1),
+          shape: const RoundedRectangleBorder(
+              borderRadius:
+                  BorderRadius.vertical(bottom: Radius.circular(30))),
+          actions: [
+            Container(
+              width: 50,
+              margin: const EdgeInsets.only(right: 20),
+              color: Colors.white,
+              child: const Image(image: AssetImage('assets/logo.png')),
+            )
+          ],
+        ),
+        body: Container(
+          padding: const EdgeInsets.only( left: 50, bottom: 50, right: 50),
+          child: ListView(
+            children: <Widget>[
+              const SizedBox(
+                height: 130,
+                child: Image(image: AssetImage('assets/banner_logo.png')),
+              ),
+              InputForm(
+                hintText: "USUARIO",
+                iconCustom: Icons.mood,
+                textController: usuarioController,
+                useHidePassword: false,
+              ),
+              const SizedBox(height: 25),
+              InputForm(
+                hintText: "NOMBRE",
+                iconCustom: Icons.mood,
+                textController: nombreController,
+                useHidePassword: false,
+              ),
+              const SizedBox(height: 25),
+              InputForm(
+                hintText: "ESTADO",
+                iconCustom: Icons.phone,
+                textController: estadoController,
+                useHidePassword: false,
+              ),
+              const SizedBox(height: 25),
+              InputForm(
+                hintText: "CORREO",
+                iconCustom: Icons.mail,
+                textController: correoController,
+                useHidePassword: false,
+              ),
+              const SizedBox(height: 25),
+              InputForm(
+                hintText: "CONTRASEÑA",
+                iconCustom: Icons.key,
+                textController: contrasenaController,
+                useHidePassword:
+                    true, // Para la contraseña, podrías querer habilitar la opción de ocultar/mostrar
+              ),
+              const SizedBox(height: 25),
+              InputForm(
+                hintText: "CONFIRMAR CONTRASEÑA",
+                iconCustom: Icons.key,
+                textController: confirmarContrasenaController,
+                useHidePassword:
+                    true, // Lo mismo aquí, si es una confirmación de contraseña, podrías querer habilitar la opción de ocultar/mostrar
+              ),
+              const SizedBox(height: 30),
+              imagen_to_upload != null
+                  ? Image.file(imagen_to_upload!)
+                  : const ClipOval(
+                      child: Image(
+                        height: 120,
+                        image: AssetImage('assets/img_profile2.png'),
                       ),
-                const SizedBox(height: 30),
-                ElevatedButton(
-                    onPressed: () async {
-                      final imagen = await getImage();
-                      if (imagen != null) {
-                        setState(() {
-                          imagen_to_upload = File(imagen.path);
-                        });
-                      } else {
-                        setState(() {
-                          imagen_to_upload = null;
-                        });
-                      }
-                    },
-                    child: const Text("Subir una imagen")),
-                const SizedBox(height: 30),
-                const Text(
-                  'Al hacer clic en "REGISTRARSE" aceptas nuestros',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500),
-                ),
-                const Text(
-                  'Términos y Condiciones',
-                  style: TextStyle(
-                      color: Color.fromRGBO(255, 118, 154, 1),
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500),
-                ),
-                const SizedBox(height: 30),
-                GestureDetector(
-                  onTap: () async {
-
-                      if (imagen_to_upload == null) {
-                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: 
-                          Text('Debes subir una imagen')
-                      ));
-                      }else{
-                        final imageUrl = await uploadImage(imagen_to_upload!);
-                    if (imageUrl != null) {
-
-                    if (nombreController.text.isEmpty ||
-                        usuarioController.text.isEmpty ||
-                        estadoController.text.isEmpty ||
-                        correoController.text.isEmpty ||
-                        contrasenaController.text.isEmpty ||
-                        confirmarContrasenaController.text.isEmpty) {
-                      // Realiza alguna acción si algún campo está vacío
-                      print('Por favor, completa todos los campos.');
-                    } else {
-                      if (contrasenaController.text !=
-                          confirmarContrasenaController.text) {
-                        // La contraseña y la confirmación de contraseña no coinciden
-                        print(
-                            'La contraseña y la confirmación de contraseña no coinciden.');
-                      } else {
-                        addUser(
-                            context,
-                            usuarioController.text,
-                            nombreController.text,
-                            contrasenaController.text,
-                            estadoController.text,
-                            correoController.text,
-                            imageUrl
-                            );
-                        // La contraseña y la confirmación de contraseña coinciden
-                        print(
-                            '¡Todos los campos están completos y la contraseña coincide!');
-                      }
-                    }
-                    } else {
-                      // Hubo un error al subir la imagen
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Error en subida de imagen')));
-                    }
-                      }
-
-                  
-                   
-                  },
-                  child: Container(
-                    height: 50,
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(15),
-                          bottom: Radius.circular(15)),
-                      color: Color.fromRGBO(255, 118, 154, 1),
                     ),
-                    child: const Center(
-                      child: Text(
-                        'REGISTRARSE',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.w900),
-                      ),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                  onPressed: () async {
+                    final imagen = await getImage();
+                    if (imagen != null) {
+                      setState(() {
+                        imagen_to_upload = File(imagen.path);
+                      });
+                    } else {
+                      setState(() {
+                        imagen_to_upload = null;
+                      });
+                    }
+                  },
+                  child: const Text("Subir una imagen")),
+              const SizedBox(height: 30),
+              const Text(
+                'Al hacer clic en "REGISTRARSE" aceptas nuestros',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500),
+              ),
+              const Text(
+                'Términos y Condiciones',
+                style: TextStyle(
+                    color: Color.fromRGBO(255, 118, 154, 1),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(height: 30),
+              GestureDetector(
+                onTap: () async {
+    
+                    if (imagen_to_upload == null) {
+                       ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: 
+                        Text('Debes subir una imagen')
+                    ));
+                    }else{
+                      final imageUrl = await uploadImage(imagen_to_upload!);
+                  if (imageUrl != null) {
+    
+                  if (nombreController.text.isEmpty ||
+                      usuarioController.text.isEmpty ||
+                      estadoController.text.isEmpty ||
+                      correoController.text.isEmpty ||
+                      contrasenaController.text.isEmpty ||
+                      confirmarContrasenaController.text.isEmpty) {
+                    // Realiza alguna acción si algún campo está vacío
+                    print('Por favor, completa todos los campos.');
+                  } else {
+                    if (contrasenaController.text !=
+                        confirmarContrasenaController.text) {
+                      // La contraseña y la confirmación de contraseña no coinciden
+                      print(
+                          'La contraseña y la confirmación de contraseña no coinciden.');
+                    } else {
+                      addUser(
+                          context,
+                          usuarioController.text,
+                          nombreController.text,
+                          contrasenaController.text,
+                          estadoController.text,
+                          correoController.text,
+                          imageUrl
+                          );
+                      // La contraseña y la confirmación de contraseña coinciden
+                      print(
+                          '¡Todos los campos están completos y la contraseña coincide!');
+                    }
+                  }
+                  } else {
+                    // Hubo un error al subir la imagen
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Error en subida de imagen')));
+                  }
+                    }
+    
+                
+                 
+                },
+                child: Container(
+                  height: 50,
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(15),
+                        bottom: Radius.circular(15)),
+                    color: Color.fromRGBO(255, 118, 154, 1),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'REGISTRARSE',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontWeight: FontWeight.w900),
                     ),
                   ),
                 ),
-              ],
-            ),
-          )),
-    );
+              ),
+            ],
+          ),
+        ));
   }
 }
 

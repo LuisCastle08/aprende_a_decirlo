@@ -161,7 +161,7 @@ class Login extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(
-                      height: 90,
+                      height: 20,
                     ),
                     const Text(
                       '¿Todavia no tienes cuenta?',
