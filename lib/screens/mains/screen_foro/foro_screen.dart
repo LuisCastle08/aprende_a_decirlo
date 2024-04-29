@@ -32,6 +32,7 @@ class _PageForoScreenState extends State<PageForoScreen> {
                     final comentario = snapshot.data![index]['comentario'];
                     final tipo = snapshot.data![index]['tipoComentario'];
                     final fecha = snapshot.data![index]['fecha'];
+                    final img = snapshot.data![index]['img'];
 
                     DateTime fechar = fecha.toDate();
 
@@ -43,6 +44,7 @@ class _PageForoScreenState extends State<PageForoScreen> {
                           : 'Sin Comentarios',
                       customContenedor: tipo ?? 1,
                     fecha: fechar,
+                    img: img ?? 'assets/img_profile.jpeg',
                     );
 
                     /* Text(usuario != null ? usuario.toString() : 'Usuario no disponible'); */

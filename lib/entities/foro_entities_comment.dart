@@ -5,7 +5,7 @@ class CommentForo extends StatelessWidget {
   final String textoCard;
   final String usuarioName;
   final int customContenedor;
-
+  final String img;
   final DateTime fecha;
 
   const CommentForo(
@@ -13,7 +13,7 @@ class CommentForo extends StatelessWidget {
       required this.textoCard,
       required this.usuarioName,
       required this.customContenedor,
-      required this.fecha});
+      required this.fecha, required this.img});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,8 @@ class CommentForo extends StatelessWidget {
       colorContenedor = const Color.fromRGBO(255, 234, 151, 1);
     }
     int fechar = DateTime.now().day;
-    String fechaComentario = ' ${( fechar - fecha.day) != 0 ? ( fechar - fecha.day) == 1 ? 'Hace ${( fechar - fecha.day)}   Dia' : 'Hace ${( fechar - fecha.day)} Dias' : ' Hoy'}';
+    String fechaComentario =
+        ' ${(fechar - fecha.day) != 0 ? (fechar - fecha.day) == 1 ? 'Hace ${(fechar - fecha.day)}   Dia' : 'Hace ${(fechar - fecha.day)} Dias' : ' Hoy'}';
 
     return Column(
       children: [
@@ -45,10 +46,11 @@ class CommentForo extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const ClipOval(
-                        child: Image(
-                          height: 100,
-                          image: AssetImage('assets/img_profile.jpeg'),
+                      Container(
+                        height: 100,
+                        width: 100,
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage('$img'),
                         ),
                       ),
                       Text(

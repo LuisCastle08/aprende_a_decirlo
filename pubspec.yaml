@@ -7,11 +7,14 @@ environment:
   sdk: ">=3.3.1 <4.0.0"
 
 dependencies:
-  firebase_core: ^2.30.0
   cloud_firestore: ^4.17.0
+  firebase_core: ^2.30.0
+  firebase_storage: ^11.7.4
   flutter:
     sdk: flutter
+  image_picker: ^1.1.0
   url_launcher: ^6.0.4
+  video_player: ^2.8.6
   youtube_player_flutter: ^9.0.1
 
 dev_dependencies:
@@ -26,3 +29,4 @@ flutter:
     - assets/
     - assets/alfabeto/
     - assets/palabra/
+    - assets/videos/

@@ -21,7 +21,8 @@ Future<Map<String, dynamic>> getUsuario(String userId) async {
     "apellidos": data['apellidos'],
     "correo": data['correo'],
     "telefono": data['telefono'],
-    "estado": data['estado']
+    "estado": data['estado'],
+    "img" : data['img']
   };
 
   return user; // Return user data map
@@ -83,6 +84,7 @@ Future<List> getComentario() async {
       "comentario": data['comentario'],
       "tipoComentario": data['tipoComentario'],
       "fecha": data['fecha'],
+      "img" : data['img'],
       "uid": doc.id,
     };
 
@@ -93,12 +95,13 @@ Future<List> getComentario() async {
 
 /* AÑADIR NUEVOS COMENTARIOS */
 Future<void> addComentario(
-    String comentario, String name, int tipoComentario, DateTime fecha) async {
+    String comentario, String name, int tipoComentario, DateTime fecha, String img) async {
   await db.collection("comentario").add({
     "comentario": comentario,
     "nombre": name,
     "tipoComentario": tipoComentario,
     "fecha": fecha,
+    "img":img
   });
 }
 

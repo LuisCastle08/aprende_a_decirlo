@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:aprende_a_decirlo/auth/login/login.dart';
-import 'package:aprende_a_decirlo/screens/main_screen.dart';
+import 'package:aprende_a_decirlo/services/select_image.dart';
+import 'package:aprende_a_decirlo/services/upload_image.dart';
 import 'package:aprende_a_decirlo/widgets/input_form.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -18,6 +22,9 @@ class _RegisterState extends State<Register> {
   final contrasenaController = TextEditingController();
   final confirmarContrasenaController = TextEditingController();
 
+  File? imagen_to_upload;
+
+  
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -104,6 +111,30 @@ class _RegisterState extends State<Register> {
                       true, // Lo mismo aquí, si es una confirmación de contraseña, podrías querer habilitar la opción de ocultar/mostrar
                 ),
                 const SizedBox(height: 30),
+                imagen_to_upload != null
+                    ? Image.file(imagen_to_upload!)
+                    : const ClipOval(
+                        child: Image(
+                          height: 120,
+                          image: AssetImage('assets/img_profile2.png'),
+                        ),
+                      ),
+                const SizedBox(height: 30),
+                ElevatedButton(
+                    onPressed: () async {
+                      final imagen = await getImage();
+                      if (imagen != null) {
+                        setState(() {
+                          imagen_to_upload = File(imagen.path);
+                        });
+                      } else {
+                        setState(() {
+                          imagen_to_upload = null;
+                        });
+                      }
+                    },
+                    child: const Text("Subir una imagen")),
+                const SizedBox(height: 30),
                 const Text(
                   'Al hacer clic en "REGISTRARSE" aceptas nuestros',
                   style: TextStyle(
@@ -120,11 +151,16 @@ class _RegisterState extends State<Register> {
                 ),
                 const SizedBox(height: 30),
                 GestureDetector(
-                  onTap: () {
-/*                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => const VideosScreen())); */
+                  onTap: () async {
+
+                      if (imagen_to_upload == null) {
+                         ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: 
+                          Text('Debes subir una imagen')
+                      ));
+                      }else{
+                        final imageUrl = await uploadImage(imagen_to_upload!);
+                    if (imageUrl != null) {
 
                     if (nombreController.text.isEmpty ||
                         usuarioController.text.isEmpty ||
@@ -135,7 +171,6 @@ class _RegisterState extends State<Register> {
                       // Realiza alguna acción si algún campo está vacío
                       print('Por favor, completa todos los campos.');
                     } else {
-                      
                       if (contrasenaController.text !=
                           confirmarContrasenaController.text) {
                         // La contraseña y la confirmación de contraseña no coinciden
@@ -148,13 +183,23 @@ class _RegisterState extends State<Register> {
                             nombreController.text,
                             contrasenaController.text,
                             estadoController.text,
-                            correoController.text);
+                            correoController.text,
+                            imageUrl
+                            );
                         // La contraseña y la confirmación de contraseña coinciden
                         print(
                             '¡Todos los campos están completos y la contraseña coincide!');
-                        
                       }
                     }
+                    } else {
+                      // Hubo un error al subir la imagen
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Error en subida de imagen')));
+                    }
+                      }
+
+                  
+                   
                   },
                   child: Container(
                     height: 50,
@@ -185,7 +230,7 @@ class _RegisterState extends State<Register> {
 
 /* AÑADIR NUEVOS usuarios */
 Future<void> addUser(BuildContext context, String usuario, String nombre,
-    String contrasena, String estado, String correo) async {
+    String contrasena, String estado, String correo, String img) async {
   // Consultar si el usuario ya existe
   var usuarioExistente =
       await db.collection("usuario").where("usuario", isEqualTo: usuario).get();
@@ -205,7 +250,6 @@ Future<void> addUser(BuildContext context, String usuario, String nombre,
               TextButton(
                 onPressed: () {
                   Navigator.of(dialogContext).pop();
-                  
                 },
                 child: const Text('OK'),
               ),
@@ -215,7 +259,7 @@ Future<void> addUser(BuildContext context, String usuario, String nombre,
         context: context // No necesitas pasar context aquí
 
         );
-    
+
     return;
   }
 
@@ -249,10 +293,11 @@ Future<void> addUser(BuildContext context, String usuario, String nombre,
     "contrasena": contrasena,
     "estado": estado,
     "correo": correo,
-    "membresia" : '0'
+    "membresia": '0',
+    "img": img
   });
 
-  Navigator.push(context, MaterialPageRoute(builder: (_) => const Login())); 
+  Navigator.push(context, MaterialPageRoute(builder: (_) => const Login()));
 
   print('¡Usuario agregado exitosamente!');
 }

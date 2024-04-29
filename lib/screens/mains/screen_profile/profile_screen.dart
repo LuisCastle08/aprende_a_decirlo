@@ -39,6 +39,7 @@ class _PageProfileScreenState extends State<PageProfileScreen> {
             final nombre = snapshot.data!['nombre'];
             final correo = snapshot.data!['correo'];
             final estado = snapshot.data!['estado'];
+            final img = snapshot.data!['img'];
 
             estadoText.text = estado;
             telefonoText.text = "telefono";
@@ -57,10 +58,11 @@ class _PageProfileScreenState extends State<PageProfileScreen> {
                       ),
                       child: Column(
                         children: [
-                          const ClipOval(
-                            child: Image(
-                              height: 120,
-                              image: AssetImage('assets/img_profile.jpeg'),
+                          Container(
+                            width: 120,
+                            height: 120,
+                            child: CircleAvatar(
+                              backgroundImage: NetworkImage('$img'),
                             ),
                           ),
                           Text(
@@ -144,35 +146,41 @@ class _PageProfileScreenState extends State<PageProfileScreen> {
                         const SizedBox(
                           height: 20,
                         ),
-                         GestureDetector(
+                        GestureDetector(
                           onTap: () {
-
-                              showDialog(
+                            showDialog(
                               builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text('ADVERTENCIA'),
-                                content: const Text('¿Estás seguro de actualizar la información?'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop(); // Cierra el diálogo
-                                    },
-                                    child: const Text('No'), // Botón "No"
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      updateUsuario(id, usuario , nombre,estadoText.text,correoText.text).then((_) => Navigator.pop(context));
-                                      setState(() {
-                                        
-                                      });
-                                    },
-                                    child: const Text('Sí'), // Botón "Sí"
-                                  ),
-                                ],
-                              );
+                                return AlertDialog(
+                                  title: const Text('ADVERTENCIA'),
+                                  content: const Text(
+                                      '¿Estás seguro de actualizar la información?'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pop(); // Cierra el diálogo
+                                      },
+                                      child: const Text('No'), // Botón "No"
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        updateUsuario(
+                                                id,
+                                                usuario,
+                                                nombre,
+                                                estadoText.text,
+                                                correoText.text)
+                                            .then(
+                                                (_) => Navigator.pop(context));
+                                        setState(() {});
+                                      },
+                                      child: const Text('Sí'), // Botón "Sí"
+                                    ),
+                                  ],
+                                );
                               },
                               context: context,
-                              );
+                            );
                           },
                           child: Container(
                             height: 50,
@@ -198,8 +206,10 @@ class _PageProfileScreenState extends State<PageProfileScreen> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (_) => const Login()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const Login()));
                           },
                           child: Container(
                             height: 50,

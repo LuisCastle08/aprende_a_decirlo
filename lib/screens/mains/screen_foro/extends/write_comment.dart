@@ -1,10 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:aprende_a_decirlo/screens/modals/foro_comment_empty.dart';
 import 'package:aprende_a_decirlo/screens/modals/foro_seleccionar_color.dart';
 import 'package:aprende_a_decirlo/services/firebase_service.dart';
 import 'package:aprende_a_decirlo/widgets/appbar_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 void main() => runApp(const WriteCommentUser());
 
@@ -14,6 +13,24 @@ class WriteCommentUser extends StatefulWidget {
 
   @override
   State<WriteCommentUser> createState() => _WriteCommentUserState();
+}
+
+Future<String?> getUrl(String usuarioCustom) async {
+  try {
+    var snapshot = await FirebaseFirestore.instance
+        .collection('usuario')
+        .where('usuario', isEqualTo: usuarioCustom)
+        .get();
+
+    if (snapshot.docs.isNotEmpty) {
+      return snapshot.docs.first.data()['img'];
+    } else {
+      return null; // El usuario no existe o el campo 'img' está vacío
+    }
+  } catch (e) {
+    print('Error al obtener la URL de la imagen: $e');
+    return null;
+  }
 }
 
 class _WriteCommentUserState extends State<WriteCommentUser> {
@@ -97,6 +114,8 @@ class _WriteCommentUserState extends State<WriteCommentUser> {
                     )),
                 GestureDetector(
                   onTap: () async {
+                    String? imageUrl = await getUrl(widget.usuarioComentario);
+                    print(imageUrl);
                     if (tipoComentario == 0) {
                       // Mostrar la ventana emergente
                       modalColorError(context);
@@ -104,8 +123,12 @@ class _WriteCommentUserState extends State<WriteCommentUser> {
                       if (comentarioController.text.trim().isEmpty) {
                         modalCommentError(context);
                       } else {
-                        await addComentario(comentarioController.text,
-                                widget.usuarioComentario, tipoComentario, fecha)
+                        await addComentario(
+                                comentarioController.text,
+                                widget.usuarioComentario,
+                                tipoComentario,
+                                fecha,
+                                imageUrl.toString())
                             .then((_) => {
                                   Navigator.pop(context) // Cerrar el diálogo
                                 });
