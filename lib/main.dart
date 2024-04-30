@@ -1,5 +1,4 @@
-import 'package:aprende_a_decirlo/auth/register/register.dart';
-import 'package:aprende_a_decirlo/auth/welcome/welcome_screen.dart';
+import 'package:aprende_a_decirlo/subirPalabra/subir_palabra_interface.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -25,11 +24,7 @@ class MainApp extends StatelessWidget {
     primarySwatch: Colors.pink,
   ), */
       debugShowCheckedModeBanner: false,
-      home: const WelcomeScreen(),
-      routes: <String, WidgetBuilder>{
-       
-        '/Registro': (BuildContext context) => const Register()
-      },
+      home: const SubirPalabraInterface(),
     );
   }
 }

@@ -1,8 +1,5 @@
 import 'package:aprende_a_decirlo/screens/mains/screen_dictionary/dictionary_screen.dart';
-import 'package:aprende_a_decirlo/screens/mains/screen_foro/foro_screen.dart';
-import 'package:aprende_a_decirlo/screens/mains/screen_games/games_screen.dart';
-import 'package:aprende_a_decirlo/screens/mains/screen_profile/profile_screen.dart';
-import 'package:aprende_a_decirlo/screens/mains/screens_videos/videos_screen.dart';
+
 import 'package:flutter/material.dart';
 
 
@@ -22,10 +19,6 @@ class _VideosScreenState extends State<VideosScreen> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> paginas = [
-      PageVideosScreen(membresia: widget.membresia,),
-      const PageGameScreen(),
-      PageProfileScreen(userId: widget.userId), // Usar widget.userId aquí
-      PageForoScreen(nombreCustom: widget.nombreUser),
       const PageDictionaryScreen(),
     ];
 

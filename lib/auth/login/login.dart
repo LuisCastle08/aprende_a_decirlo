@@ -1,5 +1,4 @@
 import 'package:aprende_a_decirlo/screens/main_screen.dart';
-import 'package:aprende_a_decirlo/auth/register/register.dart';
 import 'package:aprende_a_decirlo/widgets/input_form.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -71,7 +70,7 @@ class Login extends StatelessWidget {
                         iconCustom: Icons.person,
                         hintText: 'USUARIO',
                         textController: usuario,
-                        useHidePassword: false ,
+                        
                       ),
                     ),
                     const SizedBox(
@@ -86,7 +85,7 @@ class Login extends StatelessWidget {
                             bottom: Radius.circular(15)),
                       ),
                       child: InputForm(
-                        useHidePassword: true,
+                        
                         iconCustom: Icons.key,
                         hintText: 'CONTRASEÑA',
                         textController: password,
@@ -172,10 +171,7 @@ class Login extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => const Register()));
+                        
                       },
                       child: Container(
                         height: 50,

@@ -1,4 +1,4 @@
-import 'package:aprende_a_decirlo/screens/mains/premium_screen.dart';
+/* import 'package:aprende_a_decirlo/screens/mains/premium_screen.dart'; */
 import 'package:flutter/material.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
@@ -42,7 +42,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           onTap: () { 
             if (titleCustom == 'PREMIUM') {
             } else {
-             Navigator.push( context, MaterialPageRoute(builder: (_) => const PremiumScreen()));
+             /* Navigator.push( context, MaterialPageRoute(builder: (_) => const PremiumScreen())); */
             }
           },
           child: Container(
