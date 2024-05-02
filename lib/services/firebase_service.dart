@@ -114,7 +114,7 @@ Future<List> getA(String letter) async {
   List palabra = [];
   CollectionReference collectionReferenceLetter = db.collection('palabra');
   QuerySnapshot queryLetter =
-      await collectionReferenceLetter.where('letra', isEqualTo: letter).get();
+      await collectionReferenceLetter.where('letra', isEqualTo: letter.toUpperCase()).get();
   for (var documento in queryLetter.docs) {
     palabra.add(documento.data());
   }

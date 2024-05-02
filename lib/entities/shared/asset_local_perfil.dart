@@ -1,0 +1,21 @@
+// Lista de rutas de imágenes de perfiles
+List perfilRutas = [
+  'alce',
+  'caballo',
+  'cebra',
+  'cisne',
+  'coco',
+  'conejo',
+  'elefante',
+  'jabali',
+  'koala',
+  'leon',
+  'mapache',
+  'oso',
+  'pato',
+  'penguin',
+  'rino',
+  'tiburon',
+  'tigre',
+  'tucan',
+];

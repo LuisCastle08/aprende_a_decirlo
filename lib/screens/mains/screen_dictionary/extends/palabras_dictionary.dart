@@ -17,10 +17,10 @@ class PalabrasDictionary extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Column(
             children: [
-              InputForm(
+/*               InputForm(
                   iconCustom: Icons.search,
                 useHidePassword: false,
-                  hintText: 'Busca una Palabra con ${title.toUpperCase()}'),
+                  hintText: 'Busca una Palabra con ${title.toUpperCase()}'), */
               const SizedBox(
                 height: 10,
               ),
@@ -33,8 +33,11 @@ class PalabrasDictionary extends StatelessWidget {
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
                         
-                        final palabra = snapshot.data![index]['dic_palabra'];
-                        return PalabraDictionaryEntitie(palabra: palabra);
+                        final palabra = snapshot.data![index]['palabra'];
+                        final img = snapshot.data![index]['img'];
+                        final instrucciones = snapshot.data![index]['instrucciones'];
+                        final significado = snapshot.data![index]['significado'];
+                        return PalabraDictionaryEntitie(palabra: palabra, img: img,instrucciones: instrucciones,significado: significado,);
 
                       },
                     );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-
 class BackgroundVideo extends StatefulWidget {
   @override
   _BackgroundVideoState createState() => _BackgroundVideoState();
@@ -37,7 +36,22 @@ class _BackgroundVideoState extends State<BackgroundVideo> {
 
   @override
   void dispose() {
-    super.dispose();
+    // Pausa el video antes de que el widget se elimine
+    _controller.pause();
+    // Limpia el controlador
     _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (ModalRoute.of(context)!.isCurrent) {
+      // Reproduce el video cuando el widget se vuelve visible
+      _controller.play();
+    } else {
+      // Pausa el video cuando el widget ya no es visible
+      _controller.pause();
+    }
   }
 }

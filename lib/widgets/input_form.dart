@@ -42,13 +42,14 @@ class _InputFormState extends State<InputForm> {
       ),
       child: Center(
         child: TextFormField(
+          minLines: 1,
           textAlign: TextAlign.justify,
           controller: widget.textController,
           obscureText: _obscureText,
           decoration: InputDecoration(
             icon: Icon(widget.iconCustom),
             hintText: widget.hintText,
-            hintStyle: TextStyle( fontSize: 20, color: widget.colorTextCustom),
+            hintStyle: TextStyle( fontSize: 18, color: widget.colorTextCustom),
             border: InputBorder.none,
             // Mostramos el icono para ocultar/mostrar la contraseña solo si useHidePassword es true
             suffixIcon: widget.useHidePassword

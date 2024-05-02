@@ -61,9 +61,7 @@ class _PageProfileScreenState extends State<PageProfileScreen> {
                           Container(
                             width: 120,
                             height: 120,
-                            child: CircleAvatar(
-                              backgroundImage: NetworkImage('$img'),
-                            ),
+                            child: Image(image: AssetImage('$img'))                            
                           ),
                           Text(
                             usuario,

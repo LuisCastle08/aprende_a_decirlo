@@ -27,7 +27,11 @@ class CommentForo extends StatelessWidget {
     }
     int fechar = DateTime.now().day;
     String fechaComentario =
-        ' ${(fechar - fecha.day) != 0 ? (fechar - fecha.day) == 1 ? 'Hace ${(fechar - fecha.day)}   Dia' : 'Hace ${(fechar - fecha.day)} Dias' : ' Hoy'}';
+        ' ${(fechar - fecha.day) != 0 
+            ? (fechar - fecha.day) == 1 
+              ? 'Hace ${(fecha.day - fechar)}   Dia' 
+              : 'Hace ${(fecha.day - fechar)} Dias'
+          : ' Hoy'}';
 
     return Column(
       children: [
@@ -50,7 +54,7 @@ class CommentForo extends StatelessWidget {
                         height: 100,
                         width: 100,
                         child: CircleAvatar(
-                          backgroundImage: NetworkImage('$img'),
+                          backgroundImage: AssetImage('$img'),
                         ),
                       ),
                       Text(

@@ -1,11 +1,21 @@
 import 'package:aprende_a_decirlo/widgets/appbar_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class UsePalabraDictionary extends StatelessWidget {
   final String title;
   final String palabra;
-  const UsePalabraDictionary({super.key, required this.title, required this.palabra});
+  final String img;
+  final String instrucciones;
+  final String significado;
+
+  const UsePalabraDictionary({
+    super.key,
+    required this.title,
+    required this.palabra,
+    required this.img,
+    required this.instrucciones,
+    required this.significado,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,26 +35,57 @@ class UsePalabraDictionary extends StatelessWidget {
                 child: Column(
                   children: [
                     Expanded(
-                        flex: 2,
-                        child: SizedBox.expand(
-                          child: Container(
-                            padding: const EdgeInsets.all(20),
-                            child: Text(palabra,textAlign:TextAlign.center, style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold, color: Colors.white),),
-                          )
-                        )),
-                    const Expanded(flex: 4,
-                        child: SizedBox.expand(
-                          child: Image(image: AssetImage('assets/palabra/amigo.png')),
-                        )
+                      flex: 2,
+                      child: SizedBox.expand(
+                        child: Container(
+                          padding: const EdgeInsets.all(20),
+                          child: Text(
+                            palabra,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 50,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                     Expanded(
-                        flex: 3,
-                        child: SingleChildScrollView(
-                          child: Container(
-                              padding: const EdgeInsets.all(20),
-                              child: const Text('Se coloca la palma de la mano sobre el dorso de la otra.', textAlign: TextAlign.justify, style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600, color: Color.fromARGB(255, 255, 255, 255)),),
+                      flex: 4,
+                      child: Stack(
+                        children: [
+                          SizedBox.expand(
+                            child: Image.network(
+                              img,
+                              loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null) {
+                                  return child; // Imagen cargada, muestra la imagen
+                                } else {
+                                  return Center(child: CircularProgressIndicator()); // Mientras carga, muestra el CircularProgressIndicator
+                                }
+                              },
+                            ),
                           ),
-                        )
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: SingleChildScrollView(
+                        child: Container(
+                          padding: const EdgeInsets.all(20),
+                          child: Text(
+                            instrucciones,
+                            textAlign: TextAlign.justify,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: Color.fromARGB(255, 255, 255, 255),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -60,9 +101,14 @@ class UsePalabraDictionary extends StatelessWidget {
                 ),
                 child: Container(
                   padding: const EdgeInsets.all(20),
-                  child: const SizedBox.expand(
-                  
-                    child: Text('Persona con quien se mantiene una amistad.',textAlign: TextAlign.justify, style: TextStyle(fontSize: 40, fontWeight: FontWeight.w400),)
+                  child: SizedBox.expand(
+                    child: SingleChildScrollView(
+                      child: Text(
+                        significado,
+                        textAlign: TextAlign.justify,
+                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+                      ),
+                    ),
                   ),
                 ),
               ),

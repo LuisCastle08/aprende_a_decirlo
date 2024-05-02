@@ -74,7 +74,9 @@ class _PageVideosScreenState extends State<PageVideosScreen> {
                                             nameVideo: '$titulo',
                                             nameAutor: autor,
                                             fechaVideo:
-                                                '${fechar.day == fechaActual.day ? 1 : fechaActual.day - fechar.day}',
+                                                '${fechar.day == fechaActual.day 
+                                                ? 'Hoy'
+                                                 : fechar.day - fechaActual.day}',
                                             videoId: idvideo,
                                           );
                                         }

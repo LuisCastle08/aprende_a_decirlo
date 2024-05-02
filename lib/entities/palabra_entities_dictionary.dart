@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 class PalabraDictionaryEntitie extends StatelessWidget {
   final String letra;
   final String palabra;
-  const PalabraDictionaryEntitie({super.key,  this.letra='a', required this.palabra});
+  final String img;
+  final String instrucciones;
+  final String significado;
+  const PalabraDictionaryEntitie(
+      {super.key, this.letra = 'a', required this.palabra, required this.img, required this.instrucciones, required this.significado});
 
   @override
   Widget build(BuildContext context) {
-    
     return Column(
       children: [
         GestureDetector(
@@ -19,6 +22,10 @@ class PalabraDictionaryEntitie extends StatelessWidget {
                     builder: (_) => UsePalabraDictionary(
                           palabra: palabra,
                           title: letra,
+                          img:img,
+                          instrucciones: instrucciones,
+                          significado: significado,
+
                         )));
           },
           child: Container(
@@ -31,7 +38,7 @@ class PalabraDictionaryEntitie extends StatelessWidget {
                 child: Text(
                   palabra.toUpperCase(),
                   style: const TextStyle(
-                      fontSize: 45,
+                      fontSize: 35,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),

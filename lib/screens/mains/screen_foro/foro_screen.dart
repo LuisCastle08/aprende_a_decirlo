@@ -44,7 +44,7 @@ class _PageForoScreenState extends State<PageForoScreen> {
                           : 'Sin Comentarios',
                       customContenedor: tipo ?? 1,
                     fecha: fechar,
-                    img: img ?? 'assets/img_profile.jpeg',
+                    img: img ?? 'assets/img_profile2.png',
                     );
 
                     /* Text(usuario != null ? usuario.toString() : 'Usuario no disponible'); */
