@@ -39,7 +39,7 @@ class _PageVideosScreenState extends State<PageVideosScreen> {
                   Expanded(
                     child: TabBarView(children: [
                       /* vide */
-                      Expanded(
+                      const Expanded(
                           child: Center(
                         child: Text('HOLA ESTE ES EL APARTADO DE INICIO'),
                       )),

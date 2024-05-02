@@ -1,7 +1,6 @@
 import 'package:aprende_a_decirlo/entities/palabra_entities_dictionary.dart';
 import 'package:aprende_a_decirlo/services/firebase_service.dart';
 import 'package:aprende_a_decirlo/widgets/appbar_widget.dart';
-import 'package:aprende_a_decirlo/widgets/input_form.dart';
 import 'package:flutter/material.dart';
 
 class PalabrasDictionary extends StatelessWidget {

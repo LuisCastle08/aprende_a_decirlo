@@ -29,8 +29,8 @@ class CommentForo extends StatelessWidget {
     String fechaComentario =
         ' ${(fechar - fecha.day) != 0 
             ? (fechar - fecha.day) == 1 
-              ? 'Hace ${(fecha.day - fechar)}   Dia' 
-              : 'Hace ${(fecha.day - fechar)} Dias'
+              ? 'Hace ${(fechar - fecha.day)} Dia' 
+              : 'Hace ${(fechar - fecha.day)} Dias'
           : ' Hoy'}';
 
     return Column(
@@ -50,12 +50,10 @@ class CommentForo extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
+                      SizedBox(
                         height: 100,
                         width: 100,
-                        child: CircleAvatar(
-                          backgroundImage: AssetImage('$img'),
-                        ),
+                        child: Image(image: AssetImage(img))
                       ),
                       Text(
                         usuarioName,
