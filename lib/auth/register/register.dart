@@ -104,6 +104,8 @@ class _RegisterState extends State<Register> {
                 ),
               ),
               const SizedBox(height: 25),
+              const Text('Selecciona Correctamente tu Estado, Este Dato no se Puede Modificar a Futuro', style: TextStyle(fontWeight: FontWeight.w800, color: Color.fromARGB(255, 230, 123, 9)),),
+              const SizedBox(height: 25),
               InputForm(
                 hintText: "CORREO",
                 iconCustom: Icons.mail,
@@ -154,6 +156,10 @@ class _RegisterState extends State<Register> {
                 ),
               ),
 
+              const SizedBox(height: 30),
+
+              const Center(child: Text('ELIGE TU AVATAR', style: TextStyle(fontWeight: FontWeight.w800, color: Color.fromRGBO(255, 118, 154, 1), fontSize: 28))),
+              const Center(child: Text('Elige bien a futuro o podras cambiarlo, ¡Por Ahora!', style: TextStyle(fontWeight: FontWeight.w800, color:Colors.black,))),
               const SizedBox(height: 30),
               rutaImgProfile == ''
                   ? const ClipOval(
@@ -210,6 +216,7 @@ class _RegisterState extends State<Register> {
                     fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 30),
+
               GestureDetector(
                 onTap: () async {
                   String imageUrl = rutaImgProfile;

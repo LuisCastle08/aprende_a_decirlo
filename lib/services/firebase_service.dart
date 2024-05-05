@@ -22,6 +22,7 @@ Future<Map<String, dynamic>> getUsuario(String userId) async {
     "correo": data['correo'],
     "telefono": data['telefono'],
     "estado": data['estado'],
+    "genero": data['genero'],
     "img" : data['img']
   };
 
@@ -30,13 +31,13 @@ Future<Map<String, dynamic>> getUsuario(String userId) async {
 
 /* ACTUALIZAR UN REGISTRO EN LA BASE DE DATOS */
 Future<void> updateUsuario(String idUsuario, String usuario, String nombre,
-    String estado, String correo) async {
+    String genero, String correo) async {
   final docRef = db.collection('usuario').doc(idUsuario);
 
   await docRef.update({
     "usuario": usuario,
     "nombre": nombre,
-    "estado": estado,
+    "genero": genero,
     "correo": correo,
   });
 }

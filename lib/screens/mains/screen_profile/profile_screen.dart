@@ -15,9 +15,11 @@ class PageProfileScreen extends StatefulWidget {
 class _PageProfileScreenState extends State<PageProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    TextEditingController estadoText = TextEditingController(text: "");
-    TextEditingController telefonoText = TextEditingController(text: "");
+
+    TextEditingController usuarioText = TextEditingController(text: "");
+    TextEditingController nombreText = TextEditingController(text: "");
     TextEditingController correoText = TextEditingController(text: "");
+    TextEditingController generoText = TextEditingController(text: "");
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: const AppBarWidget(
@@ -39,11 +41,14 @@ class _PageProfileScreenState extends State<PageProfileScreen> {
             final nombre = snapshot.data!['nombre'];
             final correo = snapshot.data!['correo'];
             final estado = snapshot.data!['estado'];
+            final genero = snapshot.data!['genero'];
             final img = snapshot.data!['img'];
 
-            estadoText.text = estado;
-            telefonoText.text = "telefono";
+            usuarioText.text = usuario;
+            nombreText.text = nombre;
             correoText.text = correo;
+            generoText.text = genero;
+
 
             return SingleChildScrollView(
               child: Column(
@@ -120,21 +125,32 @@ class _PageProfileScreenState extends State<PageProfileScreen> {
                             color: Color.fromRGBO(255, 118, 154, 1),
                           ),
                         ),
-                        InputProfileCustom(
-                          customController: estadoText,
-                          hintText: "Estado",
-                          iconCustom: Icons.airline_seat_individual_suite_sharp,
+                      const SizedBox(
+                          height: 20,
+                        ),
+                      InputProfileCustom(
+                          customController: usuarioText,
+                          hintText: "Usuario",
+                          iconCustom: Icons.person,
                         ),
                         const SizedBox(
-                          height: 15,
+                          height: 20,
                         ),
-                        InputProfileCustom(
-                          customController: telefonoText,
-                          hintText: "Telefono Celular",
-                          iconCustom: Icons.phone,
+                      InputProfileCustom(
+                          customController: nombreText,
+                          hintText: "Nombre",
+                          iconCustom: Icons.abc_outlined,
                         ),
                         const SizedBox(
-                          height: 15,
+                          height: 20,
+                        ),
+                        InputProfileCustom(
+                          customController: generoText,
+                          hintText: "Genero",
+                          iconCustom: Icons.g_mobiledata_sharp,
+                        ),
+                        const SizedBox(
+                          height: 20,
                         ),
                         InputProfileCustom(
                           customController: correoText,
@@ -142,7 +158,11 @@ class _PageProfileScreenState extends State<PageProfileScreen> {
                           iconCustom: Icons.attach_email_rounded,
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 30,
+                        ),
+                        const Text("SOLO SE PUEDEN ACTUALIZAR LOS DATOS UNA VEZ", style: const TextStyle(color:Colors.red, fontWeight: FontWeight.w800, fontSize: 20), textAlign: TextAlign.justify,), 
+                        const SizedBox(
+                          height: 30,
                         ),
                         GestureDetector(
                           onTap: () {
@@ -164,9 +184,9 @@ class _PageProfileScreenState extends State<PageProfileScreen> {
                                       onPressed: () {
                                         updateUsuario(
                                                 id,
-                                                usuario,
-                                                nombre,
-                                                estadoText.text,
+                                                usuarioText.text,
+                                                nombreText.text,
+                                                generoText.text,
                                                 correoText.text)
                                             .then(
                                                 (_) => Navigator.pop(context));

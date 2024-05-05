@@ -135,7 +135,7 @@ class _PageVideosScreenState extends State<PageVideosScreen> {
                                   }
                                 },
                               )
-                            : Center(
+                            : const Center(
                                 child: Text('HOLA ESTE ES EL APARTADO DE PREMIUM'),
                               ),
                       )
