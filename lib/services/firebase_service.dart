@@ -131,3 +131,8 @@ Future<void> updateComentario(String uid, String newName) async {
       .doc(uid)
       .set({"nombre": newName, "comentario": 'HOLA SOY LUIS'});
 }
+
+
+
+
+

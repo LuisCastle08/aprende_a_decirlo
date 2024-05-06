@@ -24,6 +24,7 @@ class _RegisterState extends State<Register> {
   String estado = '';
   String genero = '';
 
+  bool registroBloqueado = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,13 +105,25 @@ class _RegisterState extends State<Register> {
                 ),
               ),
               const SizedBox(height: 25),
-              const Text('Selecciona Correctamente tu Estado, Este Dato no se Puede Modificar a Futuro', style: TextStyle(fontWeight: FontWeight.w800, color: Color.fromARGB(255, 230, 123, 9)),),
+              const Text(
+                'Selecciona Correctamente tu Estado, Este Dato no se Puede Modificar a Futuro',
+                style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    color: Color.fromARGB(255, 230, 123, 9)),
+              ),
               const SizedBox(height: 25),
               InputForm(
                 hintText: "CORREO",
                 iconCustom: Icons.mail,
                 textController: correoController,
                 useHidePassword: false,
+              ),
+              const SizedBox(height: 5),
+              const Text(
+                'Añade un Correo Veridico, con el podras recuperar tu contraseña en caso de olvidarte de ella',
+                style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    color: Color.fromARGB(255, 230, 123, 9)),
               ),
               const SizedBox(height: 25),
               InputForm(
@@ -129,7 +142,6 @@ class _RegisterState extends State<Register> {
                     true, // Lo mismo aquí, si es una confirmación de contraseña, podrías querer habilitar la opción de ocultar/mostrar
               ),
               const SizedBox(height: 30),
-              
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 height: 50,
@@ -155,11 +167,20 @@ class _RegisterState extends State<Register> {
                   },
                 ),
               ),
-
               const SizedBox(height: 30),
-
-              const Center(child: Text('ELIGE TU AVATAR', style: TextStyle(fontWeight: FontWeight.w800, color: Color.fromRGBO(255, 118, 154, 1), fontSize: 28))),
-              const Center(child: Text('Elige bien a futuro o podras cambiarlo, ¡Por Ahora!', style: TextStyle(fontWeight: FontWeight.w800, color:Colors.black,))),
+              const Center(
+                  child: Text('ELIGE TU AVATAR',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          color: Color.fromRGBO(255, 118, 154, 1),
+                          fontSize: 28))),
+              const Center(
+                  child: Text(
+                      'Elige bien a futuro o podras cambiarlo, ¡Por Ahora!',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        color: Colors.black,
+                      ))),
               const SizedBox(height: 30),
               rutaImgProfile == ''
                   ? const ClipOval(
@@ -216,58 +237,78 @@ class _RegisterState extends State<Register> {
                     fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 30),
+              registroBloqueado ? 
+              CircularProgressIndicator() : GestureDetector(
+                  onTap: () async {
+                    // Verifica si el registro está bloqueado
+                    if (registroBloqueado) {
+                      // Si el registro está bloqueado, no hagas nada
+                      return;
+                    }
 
-              GestureDetector(
-                onTap: () async {
-                  String imageUrl = rutaImgProfile;
-                  if (rutaImgProfile == '') {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text(
-                        'Debes seleccionar una Imagen de Perfil',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      backgroundColor: Color.fromARGB(255, 244, 212, 54),
-                    ));
-                  } else {
-                    if (nombreController.text.isEmpty ||
-                        usuarioController.text.isEmpty ||
-                        estado == '' ||
-                        genero == '' ||
-                        correoController.text.isEmpty ||
-                        contrasenaController.text.isEmpty ||
-                        confirmarContrasenaController.text.isEmpty) {
+                    String imageUrl = rutaImgProfile;
+                    if (rutaImgProfile == '') {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text(
-                          'Debes rellenar Todos los Campos',
+                          'Debes seleccionar una Imagen de Perfil',
                           style: TextStyle(color: Colors.black),
                         ),
                         backgroundColor: Color.fromARGB(255, 244, 212, 54),
                       ));
                     } else {
-                      if (contrasenaController.text !=
-                          confirmarContrasenaController.text) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
+                      if (nombreController.text.isEmpty ||
+                          usuarioController.text.isEmpty ||
+                          estado == '' ||
+                          genero == '' ||
+                          correoController.text.isEmpty ||
+                          contrasenaController.text.isEmpty ||
+                          confirmarContrasenaController.text.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text(
-                            'Las Contraseñas deben Coincidir',
+                            'Debes rellenar Todos los Campos',
                             style: TextStyle(color: Colors.black),
                           ),
                           backgroundColor: Color.fromARGB(255, 244, 212, 54),
                         ));
                       } else {
-                        addUser(
-                            context,
-                            usuarioController.text,
-                            nombreController.text,
-                            contrasenaController.text,
-                            estado,
-                            genero,
-                            correoController.text,
-                            imageUrl);
+                        if (contrasenaController.text !=
+                            confirmarContrasenaController.text) {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text(
+                              'Las Contraseñas deben Coincidir',
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            backgroundColor: Color.fromARGB(255, 244, 212, 54),
+                          ));
+                        } else {
+                          // Bloquea el registro mientras se procesa
+                          setState(() {
+                            registroBloqueado = true;
+                          });
+
+                          try {
+                            // Llama a addUser
+                            await addUser(
+                              context,
+                              usuarioController.text,
+                              nombreController.text,
+                              contrasenaController.text,
+                              estado,
+                              genero,
+                              correoController.text,
+                              imageUrl,
+                            );
+                          } finally {
+                            // Habilita el botón después de que se complete el proceso de registro
+                            setState(() {
+                              registroBloqueado = false;
+                            });
+                          }
+                        }
                       }
                     }
-                  }
-                },
+                  },
                 child: Container(
                   height: 50,
                   margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -292,6 +333,7 @@ class _RegisterState extends State<Register> {
         ));
   }
 }
+
 
 Future<void> addUser(
   BuildContext context,

@@ -1,4 +1,3 @@
-import 'dart:io';
 // Función para quitar acentos y comas de un texto
 
 List<Map<String, String>> traductor(String palabra) {
