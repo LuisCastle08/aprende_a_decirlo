@@ -1,3 +1,4 @@
+import 'package:aprende_a_decirlo/screens/mains/menu_opciones.dart';
 import 'package:aprende_a_decirlo/subirPalabra/subir_palabra_interface.dart';
 import 'package:flutter/material.dart';
 
@@ -17,14 +18,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Dilo En Señas',
-/*         theme: ThemeData(
-    brightness: Brightness.dark, 
-    primarySwatch: Colors.pink,
-  ), */
       debugShowCheckedModeBanner: false,
-      home: const SubirPalabraInterface(),
+      home: MenuOpciones(),
     );
   }
 }
