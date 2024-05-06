@@ -1,3 +1,4 @@
+import 'package:aprende_a_decirlo/auth/recuperarContrasena/recuperar_contrasena.dart';
 import 'package:aprende_a_decirlo/screens/main_screen.dart';
 import 'package:aprende_a_decirlo/auth/register/register.dart';
 import 'package:aprende_a_decirlo/widgets/input_form.dart';
@@ -96,7 +97,13 @@ class Login extends StatelessWidget {
                       height: 20,
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const resetPassword()));
+                      },
                       child: const Text(
                         'He olvidado mi contraseña',
                         style: TextStyle(
