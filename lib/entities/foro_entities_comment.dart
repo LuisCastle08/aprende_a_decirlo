@@ -1,3 +1,4 @@
+import 'package:aprende_a_decirlo/screens/mains/screen_foro/extends/write_comment.dart';
 import 'package:aprende_a_decirlo/widgets/input_form.dart';
 import 'package:flutter/material.dart';
 
@@ -82,17 +83,9 @@ class CommentForo extends StatelessWidget {
                                 textoCard,
                                 textAlign: TextAlign.justify,
                                 style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w400),
+                                    fontSize: 20, fontWeight: FontWeight.w400),
                               ),
                             )),
-                        const Expanded(
-                            flex: 2,
-                            child: InputForm(
-                              hintText: "comentar",
-                              colorTextCustom: Colors.black,
-                              useHidePassword: false,
-                              colorBGCustom: Color.fromRGBO(255, 255, 255, 1),
-                            ))
                       ],
                     ))),
               ],

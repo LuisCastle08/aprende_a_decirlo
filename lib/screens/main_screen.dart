@@ -1,3 +1,4 @@
+import 'package:aprende_a_decirlo/entities/shared/global_variables.dart';
 import 'package:aprende_a_decirlo/screens/mains/screen_dictionary/dictionary_screen.dart';
 import 'package:aprende_a_decirlo/screens/mains/screen_foro/foro_screen.dart';
 import 'package:aprende_a_decirlo/screens/mains/screen_games/games_screen.dart';
@@ -5,12 +6,21 @@ import 'package:aprende_a_decirlo/screens/mains/screen_profile/profile_screen.da
 import 'package:aprende_a_decirlo/screens/mains/screens_videos/videos_screen.dart';
 import 'package:flutter/material.dart';
 
+void asignarNombre(String nuevoNombre, String usuarioID, String membresiaU) {
+  nombre = nuevoNombre;
+  idUsuario = usuarioID;
+  membresia = membresiaU;
+}
 
 class VideosScreen extends StatefulWidget {
   final String userId;
   final String nombreUser;
   final String membresia;
-  const VideosScreen({super.key, required this.userId, required this.nombreUser, required this.membresia});
+  const VideosScreen(
+      {super.key,
+      required this.userId,
+      required this.nombreUser,
+      required this.membresia});
 
   @override
   State<VideosScreen> createState() => _VideosScreenState();
@@ -22,14 +32,16 @@ class _VideosScreenState extends State<VideosScreen> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> paginas = [
-      PageVideosScreen(membresia: widget.membresia,),
+      PageVideosScreen(
+        membresia: widget.membresia,
+      ),
       const PageGameScreen(),
       PageProfileScreen(userId: widget.userId), // Usar widget.userId aquí
       PageForoScreen(nombreCustom: widget.nombreUser),
       const PageDictionaryScreen(),
     ];
 
-    return  Scaffold(
+    return Scaffold(
       body: PageView(
         physics: const BouncingScrollPhysics(),
         children: [
@@ -44,7 +56,9 @@ class _VideosScreenState extends State<VideosScreen> {
           currentIndex: currentPage,
           onTap: (index) {
             currentPage = index;
-            setState(() {});
+            setState(() {
+              asignarNombre(widget.nombreUser, widget.userId, widget.membresia);
+            });
           },
 
           backgroundColor: const Color.fromRGBO(255, 234, 151, 1),
@@ -79,4 +93,3 @@ class _VideosScreenState extends State<VideosScreen> {
     );
   }
 }
-
