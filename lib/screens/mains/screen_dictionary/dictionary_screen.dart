@@ -41,23 +41,6 @@ class _PageDictionaryScreenState extends State<PageDictionaryScreen> {
           },
         ),
       ),
-      floatingActionButton: SizedBox(
-        width: 150,
-        height: 60,
-        child: FloatingActionButton(
-          enableFeedback: true,
-          /* shape: const StadiumBorder(), */ //BORDER RADIUS A CIRCULO
-          onPressed: () {
-            setState(() {
-              
-            });
-            Navigator.push(context,MaterialPageRoute(builder: (_) =>  const TraductoPalabra()));
-            
-          },
-          backgroundColor: const Color.fromRGBO(255, 118, 154, 1),
-          child: const Text('TRADUCTOR', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),)
-        ),
-      ),
     );
   }
 }

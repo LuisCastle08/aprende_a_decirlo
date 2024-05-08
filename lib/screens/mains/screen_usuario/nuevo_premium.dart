@@ -43,7 +43,7 @@ class _NuevoUsuarioPremiumState extends State<NuevoUsuarioPremium> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       width: double.infinity,
                       height: 200,
-                      color: Colors.amber,
+                      color: Color.fromARGB(255, 208, 169, 228),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
