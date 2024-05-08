@@ -28,6 +28,7 @@ flutter:
 
   assets:
     - assets/
+    - assets/perfiles/
     - assets/alfabeto/
     - assets/palabra/
     - assets/videos/

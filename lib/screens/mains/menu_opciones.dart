@@ -27,16 +27,16 @@ class MenuOpciones extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 50,),
-                const Text('AÑADIR UN USUARIO PREMIUM', style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),),
+                const Text('VER TODOS LOS USUARIOS', style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),),
                 const SizedBox(height: 20,),
                 // ignore: sized_box_for_whitespace
                 Container(
                   height: 50,
                   width: 300,
                   child: ElevatedButton(onPressed: (){
-                    Navigator.push(context,MaterialPageRoute(builder: (_) =>  const NuevoUsuarioPremium()));
+                    Navigator.push(context,MaterialPageRoute(builder: (_) =>  NuevoUsuarioPremium()));
                     
-                  }, child:const Text('AGREGAR NUEVO USUARIO PREMIUM')),
+                  }, child:const Text('VER USUARIOS')),
                 ),
                 const SizedBox(height: 50,),
                 const Text('AÑADIR UN NUEVA PALABRA', style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),),

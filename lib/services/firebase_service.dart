@@ -32,3 +32,28 @@ Future<void> addPalabra(
     "img":img
   });
 }
+
+
+
+
+/* TODOS LOS USUARIOS */
+
+Future<List<Map<String, dynamic>>> getAllUsuarios() async {
+  QuerySnapshot queryUsuarios = await db.collection('usuario').get();
+  List<Map<String, dynamic>> usuariosList = [];
+  for (var doc in queryUsuarios.docs) {
+    final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+    final Map<String, dynamic> user = {
+      "id": doc.id,
+      "usuario": data['usuario'],
+      "nombre": data['nombre'],
+      "correo": data['correo'],
+      "membresia": data['membresia'],
+      "estado": data['estado'],
+      "genero": data['genero'],
+      "img" : data['img']
+    };
+    usuariosList.add(user);
+  }
+  return usuariosList;
+}
