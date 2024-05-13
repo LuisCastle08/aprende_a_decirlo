@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class InputForm extends StatefulWidget {
   final String hintText;
@@ -8,7 +9,7 @@ class InputForm extends StatefulWidget {
   final TextEditingController? textController;
   final bool obscureText;
   final bool useHidePassword;
-
+  
   const InputForm({
     Key? key,
     required this.hintText,

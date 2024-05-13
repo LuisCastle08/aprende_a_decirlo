@@ -78,6 +78,13 @@ class _RegisterState extends State<Register> {
                 textController: nombreController,
                 useHidePassword: false,
               ),
+              const SizedBox(height: 5),
+              const Text(
+              'No se pueden usar simbolos ni numeros',
+                style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    color: Color.fromARGB(255, 230, 123, 9)),
+              ),
               const SizedBox(height: 25),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -120,7 +127,7 @@ class _RegisterState extends State<Register> {
               ),
               const SizedBox(height: 5),
               const Text(
-                'Añade un Correo Veridico, con el podras recuperar tu contraseña en caso de olvidarte de ella',
+              'Añade un Correo Veridico, con el podras recuperar tu contraseña en caso de olvidarte de ella.\n\nSolo son validos los correos con: gmail.com, hotmail.com, outlook.com',
                 style: TextStyle(
                     fontWeight: FontWeight.w800,
                     color: Color.fromARGB(255, 230, 123, 9)),
@@ -243,6 +250,26 @@ class _RegisterState extends State<Register> {
                     // Verifica si el registro está bloqueado
                     if (registroBloqueado) {
                       // Si el registro está bloqueado, no hagas nada
+                      return;
+                    }
+
+                    if (!validarNombre(nombreController.text)) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('El nombre solo puede contener letras y espacios.'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                        return;
+                    }
+
+                    if (!validarCorreo(correoController.text)) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('El correo debe ser de hotmail.com o outlook.com.'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
                       return;
                     }
 
@@ -431,4 +458,18 @@ Future<void> addUser(
       ],
     ),
   );
+}
+
+
+/* VALIDACION DE INPUTS */
+bool validarNombre(String nombre) {
+
+  RegExp regex = RegExp(r'^[a-zA-ZÁáÉéÍíÓóÚúÜü\s]+$');
+  return regex.hasMatch(nombre);
+}
+
+// Validación del campo de correo electrónico para que solo acepte hotmail.com o outlook.com
+bool validarCorreo(String correo) {
+  RegExp regex = RegExp(r'^[a-zA-Z0-9._%+-]+@(gmail|hotmail|outlook)\.com$');
+  return regex.hasMatch(correo);
 }
